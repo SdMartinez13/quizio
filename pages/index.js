@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import prisma from '../lib/prisma';
 
-export default function Home() {
+function Home({ feed }) {
+  console.log(feed, ' in home')
   return (
     <div className={styles.container}>
       <Head>
@@ -14,6 +16,18 @@ export default function Home() {
       <h1 className="text-3xl font-bold underline bg-red-100">
         Hello world! FROM TAILWIND!
       </h1>
+
+      {feed.map(item => {
+        return (
+          <div key={item.id} className="bg-yellow-100 p-4">
+            <p>Created by: {item.author.name} - Contact {item.author.email}</p>
+
+            
+            <p>{item.title}</p>
+            <p>{item.content}</p>
+          </div>
+        )
+      })}
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -73,3 +87,20 @@ export default function Home() {
     </div>
   )
 }
+
+export const getServerSideProps = async () => {
+  const feed = await prisma.post.findMany({
+    where: { published: true },
+    include: {
+      author: {
+        select: { name: true, email: true },
+      },
+    },
+  });
+  return {
+    props: { feed },
+    // revalidate: 10,
+  };
+};
+
+export default Home;
