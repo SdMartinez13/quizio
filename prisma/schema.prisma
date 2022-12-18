@@ -8,7 +8,7 @@ generator client {
 }
 
 model Post {
-  id        String     @default(cuid()) @id
+  id        String  @id @default(cuid())
   title     String
   content   String?
   tags      String?
@@ -18,11 +18,86 @@ model Post {
 }
 
 model User {
-  id            String       @default(cuid()) @id
-  name          String?
-  email         String?   @unique
-  createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
-  posts         Post[]
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?  @unique
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  posts     Post[]
+
   @@map(name: "users")
 }
+
+model QUsers {
+  user_id    String   @id @default(cuid())
+  first_name String?
+  last_name  String?
+  email      String?  @unique
+  password   String?
+  last_login DateTime @default(now())
+  created_at DateTime @default(now()) // @map(name: "created_at")
+  updated_at DateTime @updatedAt // @map(name: "updated_at")
+
+  @@map(name: "qusers")
+}
+
+model Quizzes {
+  id          Int            @id @default(autoincrement())
+  quiz_id     String?        @unique
+  title       String?
+  description String?
+  is_active   Boolean        @default(false)
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+  questions   Questions[]
+  categories  CategoryQuiz[]
+
+  @@map(name: "quizzes")
+}
+
+model Questions {
+  question_id String   @id @default(cuid())
+  question    String?
+  is_active   Boolean  @default(false)
+  score       Int?
+  answers     Json?
+  quiz_id     String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  quiz        Quizzes  @relation(fields: [quiz_id], references: [quiz_id])
+
+  @@map(name: "questions")
+}
+
+
+model QuestionQuiz {
+  category_id String   @id @default(cuid())
+  name        String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  @@map(name: "question_quiz")
+}
+
+model Categories {
+  category_id String         @id @default(cuid())
+  name        String?
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+  quizzes     CategoryQuiz[]
+
+  @@map(name: "categories")
+}
+
+model CategoryQuiz {
+  quiz        Quizzes    @relation(fields: [quiz_id], references: [quiz_id])
+  quiz_id     String
+  category    Categories @relation(fields: [category_id], references: [category_id])
+  category_id String
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  @@id([quiz_id, category_id])
+  @@map(name: "category_quiz")
+}
+
