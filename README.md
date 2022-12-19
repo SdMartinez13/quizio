@@ -34,12 +34,29 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details. -->
 # quizio
 
+## Reset database and re-seed
+This should be the command used more commonly
 
-## Seed Database
+1. run &nbsp;&nbsp;`npx prisma migrate reset`
+
+
+\
+&nbsp;
+\
+&nbsp;
+
+
+## Update migrations and seed
 
 1. run &nbsp;&nbsp;`npx prisma migrate dev`
 1. run &nbsp;&nbsp;`npx prisma db seed` 
 
-#### Reset database and seed
 
-1. run &nbsp;&nbsp;`npx prisma migrate reset`
+\
+&nbsp;
+
+
+NOTES:\
+    `npx prisma migrate reset` - will drop all tables and add new seed data \
+    `npx prisma migrate dev` - will run new migrations if available \
+    `npx prisma db seed` - will append new seed data to your current seed data
