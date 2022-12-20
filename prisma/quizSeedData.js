@@ -5,7 +5,6 @@ const CATEGORIES = {
 }
 
 
-
 const quizzes = [
     // NEW QUIZ EXAMPLE
     {
