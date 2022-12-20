@@ -103,7 +103,8 @@ export const getServerSideProps = async () => {
   });
   const quizzes = await prisma.quizzes.findMany({
     include: {
-      questions: {}
+      questions: {},
+      categories: { include : { category: true } },
     }
   })
   return {

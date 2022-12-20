@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const { faker } = require('@faker-js/faker');
 const { customAlphabet } = require('nanoid');
-const quizData = require('./questionData')
+const seedData = require('./quizSeedData')
 
 const nanoid = customAlphabet('1234567890abcdef', 7);
 const prisma = new PrismaClient();
@@ -20,69 +20,81 @@ const userData = Array.from({ length: createNewUsersCOUNT }).map(() => ({
     email: faker.internet.email(),
 }))
 
+const categoryData = Object.keys(seedData.categories).map(item => {
+    return { name: seedData.categories[item] }
+})
+
+// steps 
+// create users
+// create categories
+//  - normalize categories for quizzes
+// create quizzes (related to users and categories)
+
 async function main() {
     console.log('Initiating Seeding')
 
     // create users
     await prisma.qUsers.createMany({ data: userData });
+    // end create users
 
-    // console.log(quizData, 'quizData')
 
+    // create categories
+
+    await prisma.categories.createMany({ data: categoryData });
+
+    const getCategories = await prisma.categories.findMany();
+    const normalizedCategories = getCategories.reduce((acc, curr) => ({ ...acc, [curr.name]: curr.category_id}), {})
+    // end create categories
+
+
+    // add quizzes to users
     const getSomeUsers = await prisma.qUsers.findMany({
-        take: usersWithSeedDataCOUNT, select: { user_id: true, email: true },
+        take: usersWithSeedDataCOUNT, select: { user_id: true, first_name: true },
     })
 
-
-    const splitQuizzes = splitToChunks([...quizData], getSomeUsers.length);
+    const splitQuizzes = splitToChunks([...seedData.quizzes], getSomeUsers.length);
 
     await Promise.all(
         getSomeUsers.map(async (user, ind) => {
-            console.log(user, 'user ===========')
+            // console.log(user, 'user ===========')
 
             await Promise.all(
                 splitQuizzes[ind].map(async item => {
-                    const { questions, ...rest } = item;
-                    // console.log(item, user.user_id, 'item')
+                    const { questions, categories = [], ...rest } = item;
 
-                    await prisma.quizzes.create({
+                    const categoriesSet = [...new Set(categories)];
+
+                    const createdQuiz = await prisma.quizzes.create({
                         data: {
                             ...rest,
                             quiz_id: nanoid(),
                             user_id: user.user_id,
                             questions: {
                                 create: questions,
-                            }
+                            },
                         }
                     })
+
+                    // add category_quiz
+                    await Promise.all(
+                        categoriesSet.map(async cat => {
+                            await prisma.categoryQuiz.create({
+                                data: {
+                                    quiz_id: createdQuiz.quiz_id,
+                                    category_id: normalizedCategories[cat],
+                                }
+                            })
+                        })
+                    )
+                    // end add category_quiz
                 })
             )
         })
     )
+    // end add quizzes to users
 
-    // await Promise.all(
-    //     getSomeUsers.map(async user => {
-    //         console.log(user, 'user')
 
-    //         await Promise.all(
-    //             quizData.map(async item => {
-    //                 const { questions, ...rest } = item;
-
-    //                 await prisma.quizzes.create({
-    //                     data: {
-    //                         ...rest,
-    //                         quiz_id: nanoid(),
-    //                         user_id: user.user_id,
-    //                         questions: {
-    //                             create: questions,
-    //                         }
-    //                     }
-    //                 })
-    //             })
-    //         )
-    //     })
-    // )
     // await demoSeed();
-
 }
 
 main()
@@ -142,7 +154,6 @@ const demoSeed = async () => {
         },
     })
     console.log({ alice, bob })
-
     return true;
 }
 
@@ -160,7 +171,7 @@ const demoSeed = async () => {
 //                     question: 'What color is a tree frog?',
 //                     is_active: true,
 //                     // score
-//                     answers: [{ "correct": true, "answer": "green" }, { "correct": false, "answer": "red" }, { "correct": false, "answer": "green" }, { "correct": false, "answer": "purple" }]
+//                     choices: [{ "correct": true, "choice": "green" }, { "correct": false, "choice": "red" }, { "correct": false, "choice": "green" }, { "correct": false, "choice": "purple" }]
 //                 }
 //             ]
 //         }

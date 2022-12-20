@@ -63,7 +63,7 @@ model Questions {
   question    String?
   is_active   Boolean  @default(false)
   score       Int?
-  answers     Json?
+  choices     Json?
   quiz_id     String
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
