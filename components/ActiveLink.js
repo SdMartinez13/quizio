@@ -20,17 +20,17 @@ const ActiveLink = ({ href, children, ...rest }) => {
 
   const activeLinkBgColor =
     currentTheme === 'dark'
-      ? 'bg-gray-700 text-black'
-      : 'bg-blue-200 text-black';
+      ? 'bg-gray-700 text-white'
+      : 'bg-purple-600 text-white';
 
   const themeBgHover =
     currentTheme === 'dark'
-      ? 'hover:bg-gray-700 hover:text-black'
-      : 'hover:bg-blue-200 hover:text-black ';
+      ? 'hover:bg-gray-700 hover:text-white'
+      : 'hover:bg-purple-800 hover:text-white ';
 
   const activeLinkAndNotActiveColor = isActive
     ? activeLinkBgColor
-    : `text-black-300 ${themeBgHover}`;
+    : `text-white-300 ${themeBgHover}`;
 
   const className = `${activeLinkAndNotActiveColor} px-3 py-2 rounded-md text-sm font-medium`;
 
