@@ -11,7 +11,8 @@ const Navbar = () => {
             <div className="flex gap-x-4">
 
                 <ActiveLink href="/">Home</ActiveLink>
-                <ActiveLink href="/tests">My Tests</ActiveLink>
+                <ActiveLink href="/quizzes">My Quizzes</ActiveLink>
+
                 <ActiveLink href="/about">About</ActiveLink>
 
                 {!!session.data && (

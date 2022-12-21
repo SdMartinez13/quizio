@@ -1,7 +1,12 @@
 const CATEGORIES = {
     MOVIES: 'Movies',
+    TV: 'TV',
+    BOOKS: 'Books',
     SPORTS: 'Sports',
-    JAVASCRIPT: 'Javascript'
+    JAVASCRIPT: 'Javascript',
+    HTML: 'HTML',
+    CSS: 'CSS',
+    REACT: 'React'
 }
 
 
