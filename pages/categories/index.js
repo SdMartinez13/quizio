@@ -1,3 +1,6 @@
+import Link from 'next/link';
+
+
 function CategoriesPage ({ categories }) {
     return (
         <div className="flex mt-10 p-4 gap-4">
@@ -5,9 +8,9 @@ function CategoriesPage ({ categories }) {
 
                 {categories.map(item => {
                     return (
-                        <div key={item.category_id} className="bg-red-100 p-4 w-1/4 border border-black ">
+                        <Link href={`categories/${item.name.toLowerCase()}`} key={item.category_id} className="bg-red-100 m-4 p-4 w-1/4 border border-black ">
                             {item.name}
-                        </div>
+                        </Link>
                     )
                 })}
 
