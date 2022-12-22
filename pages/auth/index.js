@@ -19,12 +19,13 @@ const SignIn = () => {
             redirect: false,
         });
 
-        console.log(res);
+        // console.log(res, 'res');
         if (!res.error) {
-            return router.push(router.query?.redirect || '/');
+            // return router.push(router.query?.redirect || '/');
+            return router.push(res.url || '/');
         }
 
-        return true;
+        return false;
 
         // handle error cases
     };

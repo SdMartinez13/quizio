@@ -32,7 +32,7 @@ const Navbar = () => {
             ) : (
                 <button
                     type="button"
-                    onClick={signOut}
+                    onClick={() => signOut({ callbackUrl: '/' })}
                     className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-blue-200"
                 >
                     Logout

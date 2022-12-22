@@ -35,7 +35,7 @@ const authOptions = {
     },
     callbacks: {
         jwt(params) {
-            console.log(params, ' params');
+            // console.log(params, ' params');
             // update token
             if (params.user?.role) {
                 params.token.role = params.user.role;
@@ -49,7 +49,24 @@ const authOptions = {
             // if (url.startsWith("/")) return `${baseUrl}${url}`
             // // Allows callback URLs on the same origin
             // else if (new URL(url).origin === baseUrl) return url
-            return baseUrl;
+            // return baseUrl;
+
+            if (!url.startsWith('http')) return url
+
+
+            // If we have a callback use only its relative path
+            const callbackUrl = new URL(url).searchParams.get('callbackUrl')
+            if (!callbackUrl) return url;
+
+            console.log(baseUrl + callbackUrl, 'CALLBACK URL')
+            console.log(new URL(baseUrl + callbackUrl), 'new URL(baseUrl + callbackUrl)')
+
+            // return new URL(baseUrl + callbackUrl).href;
+
+
+            // return 'http://google.com';
+            return baseUrl + callbackUrl;
+            // return new URL(callbackUrl).pathname;
         },
     },
 };
