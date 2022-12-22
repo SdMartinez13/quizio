@@ -1,13 +1,14 @@
-import Head from 'next/head'
+/* global prisma */
+import Head from 'next/head';
 // import Image from 'next/image'
-import styles from '../styles/Home.module.css'
-import prisma from '../lib/prisma';
-
+import PropTypes from 'prop-types';
+import styles from '../styles/Home.module.css';
+// import prisma from '../lib/prisma';
 
 function Home({ feed, quizzes, categories }) {
-    console.log(feed, ' in home')
-    console.log(quizzes, 'quizzes')
-    console.log(categories, 'categories')
+    console.log(feed, ' in home');
+    console.log(quizzes, 'quizzes');
+    console.log(categories, 'categories');
 
     return (
         <div className={styles.container}>
@@ -44,18 +45,17 @@ function Home({ feed, quizzes, categories }) {
                 </p> */}
 
 
-
                 {/* <div className={styles.grid}>
                     <a href="https://nextjs.org/docs" className={styles.card}>
                     <h2>Documentation &rarr;</h2>
                     <p>Find in-depth information about Next.js features and API.</p>
                     </a>
-                    
+
                     <a href="https://nextjs.org/learn" className={styles.card}>
                     <h2>Learn &rarr;</h2>
                     <p>Learn about Next.js in an interactive course with quizzes!</p>
                     </a>
-                    
+
                     <a
                     href="https://github.com/vercel/next.js/tree/canary/examples"
                     className={styles.card}
@@ -63,7 +63,7 @@ function Home({ feed, quizzes, categories }) {
                     <h2>Examples &rarr;</h2>
                     <p>Discover and deploy boilerplate example Next.js projects.</p>
                     </a>
-                    
+
                     <a
                     href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
                     target="_blank"
@@ -84,7 +84,7 @@ function Home({ feed, quizzes, categories }) {
                         <p className="mb-3 font-normal text-gray-700 dark:text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         <a href="/createQuiz" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-500 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-white-300 dark:bg-purple-600">
                             Create Now
-                            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                         </a>
                     </div>
                     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md">
@@ -94,7 +94,7 @@ function Home({ feed, quizzes, categories }) {
                         <p className="mb-3 font-normal text-gray-700 dark:text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                         <a href="/categories" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-500 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-white-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
                             Categories
-                            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+                            <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
                         </a>
                     </div>
                 </div>
@@ -125,7 +125,7 @@ function Home({ feed, quizzes, categories }) {
                 </a>
             </footer>
         </div>
-    )
+    );
 }
 
 export const getServerSideProps = async () => {
@@ -143,11 +143,11 @@ export const getServerSideProps = async () => {
     const quizzes = await prisma.quizzes.findMany({
         include: {
             questions: {},
-            categories: { include: { category: true } }
-        }
-    })
+            categories: { include: { category: true } },
+        },
+    });
 
-    const categories = await prisma.categories.findMany()
+    const categories = await prisma.categories.findMany();
 
 
     return {
@@ -157,3 +157,10 @@ export const getServerSideProps = async () => {
 };
 
 export default Home;
+
+
+Home.propTypes = {
+    feed: PropTypes.array,
+    quizzes: PropTypes.array,
+    categories: PropTypes.array,
+};

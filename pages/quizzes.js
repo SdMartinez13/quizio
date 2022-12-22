@@ -1,5 +1,6 @@
 const Quizzes = () => {
-  return <div>My Quizzes live here</div>
-}
+    const b = '';
+    return <div>My Quizzes {b} live here</div>;
+};
 
 export default Quizzes;

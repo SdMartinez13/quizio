@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const { faker } = require('@faker-js/faker');
 const { customAlphabet } = require('nanoid');
-const seedData = require('./quizSeedData')
+const seedData = require('./quizSeedData');
 
 const nanoid = customAlphabet('1234567890abcdef', 7);
 const prisma = new PrismaClient();
@@ -18,20 +18,18 @@ const userData = Array.from({ length: createNewUsersCOUNT }).map(() => ({
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
     email: faker.internet.email(),
-}))
+}));
 
-const categoryData = Object.keys(seedData.categories).map(item => {
-    return { name: seedData.categories[item] }
-})
+const categoryData = Object.keys(seedData.categories).map(item => ({ name: seedData.categories[item] }));
 
-// steps 
+// steps
 // create users
 // create categories
 //  - normalize categories for quizzes
 // create quizzes (related to users and categories)
 
 async function main() {
-    console.log('Initiating Seeding')
+    console.log('Initiating Seeding');
 
     // create users
     await prisma.qUsers.createMany({ data: userData });
@@ -43,14 +41,14 @@ async function main() {
     await prisma.categories.createMany({ data: categoryData });
 
     const getCategories = await prisma.categories.findMany();
-    const normalizedCategories = getCategories.reduce((acc, curr) => ({ ...acc, [curr.name]: curr.category_id}), {})
+    const normalizedCategories = getCategories.reduce((acc, curr) => ({ ...acc, [curr.name]: curr.category_id }), {});
     // end create categories
 
 
     // add quizzes to users
     const getSomeUsers = await prisma.qUsers.findMany({
         take: usersWithSeedDataCOUNT, select: { user_id: true, first_name: true },
-    })
+    });
 
     const splitQuizzes = splitToChunks([...seedData.quizzes], getSomeUsers.length);
 
@@ -72,8 +70,8 @@ async function main() {
                             questions: {
                                 create: questions,
                             },
-                        }
-                    })
+                        },
+                    });
 
                     // add category_quiz
                     await Promise.all(
@@ -82,15 +80,15 @@ async function main() {
                                 data: {
                                     quiz_id: createdQuiz.quiz_id,
                                     category_id: normalizedCategories[cat],
-                                }
-                            })
-                        })
-                    )
+                                },
+                            });
+                        }),
+                    );
                     // end add category_quiz
-                })
-            )
-        })
-    )
+                }),
+            );
+        }),
+    );
     // end add quizzes to users
 
 
@@ -178,7 +176,7 @@ main()
 
 // helpers
 function splitToChunks(array, parts) {
-    let result = [];
+    const result = [];
     for (let i = parts; i > 0; i--) {
         result.push(array.splice(0, Math.ceil(array.length / i)));
     }

@@ -1,19 +1,19 @@
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 
-const SignIn = (props) => {
-    const router = useRouter()
+const SignIn = () => {
+    const router = useRouter();
 
-    const [userInfo, setUserInfo] = useState({ email: "john@gmail.com", password: "1234" });
+    const [userInfo, setUserInfo] = useState({ email: 'john@gmail.com', password: '1234' });
     const handleSubmit = async (e) => {
         // validate your userinfo
         e.preventDefault();
 
-        console.log(router, 'ROUTERRRR')
+        console.log(router, 'ROUTERRRR');
 
-        const res = await signIn("credentials", {
+        const res = await signIn('credentials', {
             email: userInfo.email,
             password: userInfo.password,
             redirect: false,
@@ -21,8 +21,10 @@ const SignIn = (props) => {
 
         console.log(res);
         if (!res.error) {
-            return router.push(router.query?.redirect || '/')
+            return router.push(router.query?.redirect || '/');
         }
+
+        return true;
 
         // handle error cases
     };
@@ -37,7 +39,7 @@ const SignIn = (props) => {
                     <input
                         name="email"
                         value={userInfo.email}
-                        onChange={({ target }) => setUserInfo({ ...userInfo, email: target.value }) }
+                        onChange={({ target }) => setUserInfo({ ...userInfo, email: target.value })}
                         type="email"
                         placeholder="john@email.com"
                     />
@@ -47,7 +49,7 @@ const SignIn = (props) => {
                     <input
                         name="password"
                         value={userInfo.password}
-                        onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value }) }
+                        onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value })}
                         type="password"
                         placeholder="********"
                     />

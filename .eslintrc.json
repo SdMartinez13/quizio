@@ -1,5 +1,24 @@
 {
-  "extends": "next/core-web-vitals",
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:react-hooks/recommended",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+
+
+ 
+
   "rules": {
     "indent": ["error", 4, { "SwitchCase": 1 }],
     "no-multiple-empty-lines": ["error", { "max": 2, "maxEOF": 0 }],
@@ -15,6 +34,8 @@
     "no-param-reassign": ["error", { "props": false }],
     "no-tabs": ["error", { "allowIndentationTabs": true }] ,
 
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": "off",
 
 
     "max-len": "off",

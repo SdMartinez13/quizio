@@ -1,5 +1,6 @@
 const CreateQuiz = () => {
-    return <div>Create Quiz Page</div>
-}
+    const unusedVariable = '';
+    return <div>Create Quiz Page</div>;
+};
 
 export default CreateQuiz;

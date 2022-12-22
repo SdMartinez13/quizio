@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useSession, signOut } from "next-auth/react";
-import ActiveLink from "./ActiveLink";
+import { useSession, signOut } from 'next-auth/react';
+import ActiveLink from './ActiveLink';
 
 const Navbar = () => {
     const session = useSession();
@@ -20,9 +20,7 @@ const Navbar = () => {
                     <ActiveLink href="/protected">Protected</ActiveLink>
                 )}
 
-
             </div>
-
 
             {!session.data ? (
                 <Link
@@ -33,6 +31,7 @@ const Navbar = () => {
                 </Link>
             ) : (
                 <button
+                    type="button"
                     onClick={signOut}
                     className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-blue-200"
                 >
@@ -42,7 +41,6 @@ const Navbar = () => {
 
         </div>
     );
-
 };
 
 export default Navbar;

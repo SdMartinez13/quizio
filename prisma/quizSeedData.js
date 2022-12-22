@@ -6,8 +6,8 @@ const CATEGORIES = {
     JAVASCRIPT: 'Javascript',
     HTML: 'HTML',
     CSS: 'CSS',
-    REACT: 'React'
-}
+    REACT: 'React',
+};
 
 
 const quizzes = [
@@ -20,14 +20,15 @@ const quizzes = [
         questions: [
             {
                 question: 'What color is grass?',
+                orderChoices: true, // used to randomize choices or not
                 choices: [
                     { correct: false, choice: 'red' },
                     { correct: true, choice: 'green' },
                     { correct: false, choice: 'green' },
-                    { correct: false, choice: 'purple' }
+                    { correct: false, choice: 'purple' },
                 ],
                 is_active: true,
-                score: 5 // OPTIONAL
+                score: 5, // OPTIONAL
             },
             {
                 question: 'What color are school busses?',
@@ -35,12 +36,12 @@ const quizzes = [
                     { correct: false, choice: 'red' },
                     { correct: false, choice: 'green' },
                     { correct: true, choice: 'yellow' },
-                    { correct: false, choice: 'purple' }
+                    { correct: false, choice: 'purple' },
                 ],
                 is_active: true,
-                score: 8 // OPTIONAL
-            }
-        ]
+                score: 8, // OPTIONAL
+            },
+        ],
     },
     // END NEW QUIZ EXAMPLE
 
@@ -55,10 +56,10 @@ const quizzes = [
                     { correct: false, choice: 'red' },
                     { correct: true, choice: 'green' },
                     { correct: false, choice: 'green' },
-                    { correct: false, choice: 'purple' }
+                    { correct: false, choice: 'purple' },
                 ],
                 is_active: true,
-                score: 5 // OPTIONAL
+                score: 5, // OPTIONAL
             },
             {
                 question: 'What color are school busses?',
@@ -66,17 +67,17 @@ const quizzes = [
                     { correct: false, choice: 'red' },
                     { correct: false, choice: 'green' },
                     { correct: true, choice: 'yellow' },
-                    { correct: false, choice: 'purple' }
+                    { correct: false, choice: 'purple' },
                 ],
                 is_active: true,
-                score: 8 // OPTIONAL
-            }
-        ]
+                score: 8, // OPTIONAL
+            },
+        ],
     },
 
 
     // copy object above and paste here
-]
+];
 
 
 module.exports = {

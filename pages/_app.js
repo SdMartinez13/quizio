@@ -1,6 +1,7 @@
-import Navbar from '../components/Navbar'
+import PropTypes from 'prop-types';
 import { SessionProvider } from 'next-auth/react';
-import '../styles/globals.css'
+import Navbar from '../components/Navbar';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
     return (
@@ -8,9 +9,12 @@ function MyApp({ Component, pageProps }) {
             <Navbar />
             <Component {...pageProps} />
         </SessionProvider>
-    )
-
-
+    );
 }
 
 export default MyApp;
+
+MyApp.propTypes = {
+    Component: PropTypes.element,
+    pageProps: PropTypes.object,
+};
