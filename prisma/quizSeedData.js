@@ -20,7 +20,7 @@ const quizzes = [
         questions: [
             {
                 question: 'What color is grass?',
-                orderChoices: true, // used to randomize choices or not
+                // orderChoices: true, // used to randomize choices or not
                 choices: [
                     { correct: false, choice: 'red' },
                     { correct: true, choice: 'green' },

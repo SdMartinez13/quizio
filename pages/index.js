@@ -1,9 +1,8 @@
-/* global prisma */
 import Head from 'next/head';
 // import Image from 'next/image'
 import PropTypes from 'prop-types';
 import styles from '../styles/Home.module.css';
-// import prisma from '../lib/prisma';
+import prisma from '../lib/prisma';
 
 function Home({ feed, quizzes, categories }) {
     console.log(feed, ' in home');
