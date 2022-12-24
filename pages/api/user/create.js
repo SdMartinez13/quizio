@@ -25,9 +25,35 @@ async function handlePOST(res, req) {
     // });
 
     // bcrypt here
+    console.log(req.body)
+
+    const { first_name, last_name, email, password } = req.body
+
+    // if (!)
+    const errors = {};
+
+    if (!first_name) {
+        errors.first_name = 'First Name is required'
+    }
+    if (!email) {
+        errors.email = 'Email is required'
+    }
+    if (!password) {
+        errors.password = 'Password is required'
+    }
+
+
+    if (!!Object.keys(errors).length) {
+        console.log(errors, 'errors')
+        return res.status(200).send({ errors })
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
 
     const user = await prisma.qUsers.create({
-        // data: { ...req.body, password: hashPassword(req.body.password) },
+        data: { ...req.body, password: hashed },
     });
-    res.json(user);
+    console.log(user, 'NEWLY CREATED USERRR')
+    // res.json(user);
+    return res.status(200).send('hello world')
 }
