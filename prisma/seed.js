@@ -15,13 +15,6 @@ const createNewUsersCOUNT = 1;
 const usersWithSeedDataCOUNT = 1;
 
 
-const userData = Array.from({ length: createNewUsersCOUNT }).map(() => ({
-    first_name: faker.name.firstName(),
-    last_name: faker.name.lastName(),
-    email: faker.internet.email(),
-}));
-
-const categoryData = Object.keys(seedData.categories).map(item => ({ name: seedData.categories[item] }));
 
 // steps
 // create users
@@ -29,26 +22,35 @@ const categoryData = Object.keys(seedData.categories).map(item => ({ name: seedD
 //  - normalize categories for quizzes
 // create quizzes (related to users and categories)
 
-const password = 'abc123';
 
 async function main() {
     console.log('Initiating Seeding');
 
+    const password = 'abc123';
+    const hashed = await bcrypt.hash(password, 10);
 
-    const b = await bcrypt.hash(password, 10);
+    const userData = Array.from({ length: createNewUsersCOUNT }).map(() => ({
+        first_name: faker.name.firstName(),
+        last_name: faker.name.lastName(),
+        email: faker.internet.email(),
+        password: hashed,
+    }));
 
-    console.log(b, 'bbbb')
+    const categoryData = Object.keys(seedData.categories).map(item => ({ name: seedData.categories[item] }));
 
 
-    const decryptMe = await bcrypt.compare(password, b);
 
-    console.log(decryptMe, 'decrptyme')
+    // console.log(b, 'bbbb')
 
-    return ;
+
+    // const decryptMe = await bcrypt.compare(password, b);
+
+    // console.log(decryptMe, 'decrptyme')
+
 
 
     // create users
-    await prisma.qUsers.createMany({ data: [{ first_name: 'John', last_name: 'Doe', email: 'JD@gmail.com' }, ...userData] });
+    await prisma.qUsers.createMany({ data: [{ first_name: 'John', last_name: 'Doe', email: 'JD@gmail.com', password: hashed }, ...userData] });
     // end create users
 
 

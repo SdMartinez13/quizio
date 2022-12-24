@@ -23,7 +23,7 @@ const authOptions = {
 
                 const { data: myUser } = await axios.post(`${process.env.NEXTAUTH_URL}/api/user/check-credentials`, { email, password });
 
-                console.log(myUser, 'MY USER')
+                console.log(myUser, 'MY USER');
 
                 if (!myUser) {
                     throw new Error('invalid credentials');
@@ -50,7 +50,7 @@ const authOptions = {
     },
     callbacks: {
         jwt(params) {
-            console.log(params, 'JWT params');
+            // console.log(params, 'JWT params');
             // update token
             if (params.user?.role) {
                 params.token.role = params.user.role;
@@ -60,7 +60,7 @@ const authOptions = {
             if (params.user) {
                 // params.token.first_name = params.user.first_name;
                 // params.token.user = params.user
-                params.token = { ...params.token, ...params.user }
+                params.token = { ...params.token, ...params.user };
             }
 
             return params.token;
@@ -68,13 +68,13 @@ const authOptions = {
 
         async session({ session, token, user }) {
             // Send properties to the client, like an access_token from a provider.
-            console.log({ session, token, user }, '{ session, token, user }')
+            // console.log({ session, token, user }, '{ session, token, user }');
             // session.accessToken = token.accessToken
             session.token = token;
             return session;
         },
         async redirect({ url, baseUrl }) {
-            console.log({ url, baseUrl });
+            // console.log({ url, baseUrl });
             // Allows relative callback URLs
             // if (url.startsWith("/")) return `${baseUrl}${url}`
             // // Allows callback URLs on the same origin
@@ -86,17 +86,13 @@ const authOptions = {
 
             // If we have a callback use only its relative path
             const callbackUrl = new URL(url).searchParams.get('callbackUrl');
-            if (!callbackUrl) return url;
+            if (!callbackUrl) return baseUrl;
 
             // console.log(baseUrl + callbackUrl, 'CALLBACK URL');
             // console.log(new URL(baseUrl + callbackUrl), 'new URL(baseUrl + callbackUrl)');
 
             // return new URL(baseUrl + callbackUrl).href;
-
-
-            // return 'http://google.com';
             return baseUrl + callbackUrl;
-            // return new URL(callbackUrl).pathname;
         },
     },
 };

@@ -112,16 +112,16 @@ function Home({ feed, quizzes, categories }) {
             </div> */}
 
             <footer className={styles.footer}>
-                <a
+                {/* <a
                     href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
                     target="_blank"
                     rel="noopener noreferrer"
-                >
-                    Powered by{' Deez '}
-                    <span className={styles.logo}>
-                        {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
-                    </span>
-                </a>
+                > */}
+                Powered by{' Deez '}
+                <span className={styles.logo}>
+                    {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
+                </span>
+                {/* </a> */}
             </footer>
         </div>
     );

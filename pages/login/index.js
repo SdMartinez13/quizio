@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 const SignIn = () => {
     const router = useRouter();
-    const [userInfo, setUserInfo] = useState({ email: 'JD@gmail.com', password: '1234' });
+    const [userInfo, setUserInfo] = useState({ email: 'JD@gmail.com', password: 'abc123' });
 
     // const [userInfo, setUserInfo] = useState({ email: 'john@gmail.com', password: '1234' });
     const handleSubmit = async (e) => {
@@ -168,6 +168,22 @@ const Form = ({ userInfo, setUserInfo, handleSubmit }) => {
                     value={userInfo.password}
                     onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value })}
                     className="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                    id="grid-password"
+                    type="password"
+                    placeholder="******************"
+                />
+                <p className="text-gray-600 text-xs italic">Make it as long and as crazy as you'd like</p>
+            </div>
+
+
+            <div className="w-full mb-6">
+                <label className="block  text-gray-700 text-sm font-bold mb-2" htmlFor="grid-password">
+                    Password
+                </label>
+                <input
+                    // value={userInfo.pasword}
+                    // onChange={({ target }) => setUserInfo({ ...userInfo, password: target.value })}
+                    className="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white focus:border-gray-300"
                     id="grid-password"
                     type="password"
                     placeholder="******************"

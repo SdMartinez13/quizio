@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 import ActiveLink from './ActiveLink';
-import { useRouter } from 'next/router'
 
 const Navbar = () => {
     const session = useSession();
