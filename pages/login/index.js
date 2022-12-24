@@ -52,7 +52,7 @@ const SignIn = () => {
                 </div>
 
                 <div className="px-4 py-8 max-w-md m-auto">
-                    <div className="bg-yellow-100 border border-yellow-200 p-4 rounded">
+                    <div className="bg-yellow-100 border border-yellow-300 p-4 rounded text-sm text-center">
                         The requested action requires you to be logged in
                     </div>
                 </div>
@@ -105,6 +105,8 @@ export default SignIn;
 
 
 const Form = ({ userInfo, setUserInfo, handleSubmit }) => {
+    const router = useRouter();
+
     const hasErrors = false;
     const hasErrors2 = true;
 
@@ -209,7 +211,7 @@ const Form = ({ userInfo, setUserInfo, handleSubmit }) => {
 
             <div className="flex justify-between items-center">
 
-                <button type="button" className="text-gray-700 text-sm">Cancel</button>
+                <button type="button" className="text-gray-700 text-sm" onClick={router.back}>Cancel</button>
 
                 <p className="text-center text-gray-700 text-sm">
                     Dont have an account?&nbsp;
