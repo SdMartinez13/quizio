@@ -10,7 +10,7 @@ import classNames from 'classnames';
 
 const SignIn = () => {
     const router = useRouter();
-    const [userInfo, setUserInfo] = useState({ email: 'Beatrice.Jones@yahoo.com', password: '1234' });
+    const [userInfo, setUserInfo] = useState({ email: 'JD@gmail.com', password: '1234' });
 
     // const [userInfo, setUserInfo] = useState({ email: 'john@gmail.com', password: '1234' });
     const handleSubmit = async (e) => {
