@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const { faker } = require('@faker-js/faker');
+const bcrypt = require('bcrypt');
 const { customAlphabet } = require('nanoid');
 const seedData = require('./quizSeedData');
 
@@ -28,8 +29,23 @@ const categoryData = Object.keys(seedData.categories).map(item => ({ name: seedD
 //  - normalize categories for quizzes
 // create quizzes (related to users and categories)
 
+const password = 'abc123';
+
 async function main() {
     console.log('Initiating Seeding');
+
+
+    const b = await bcrypt.hash(password, 10);
+
+    console.log(b, 'bbbb')
+
+
+    const decryptMe = await bcrypt.compare(password, b);
+
+    console.log(decryptMe, 'decrptyme')
+
+    return ;
+
 
     // create users
     await prisma.qUsers.createMany({ data: userData });
