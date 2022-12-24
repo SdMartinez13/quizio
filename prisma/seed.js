@@ -48,7 +48,7 @@ async function main() {
 
 
     // create users
-    await prisma.qUsers.createMany({ data: userData });
+    await prisma.qUsers.createMany({ data: [{ first_name: 'John', last_name: 'Doe', email: 'JD@gmail.com' }, ...userData] });
     // end create users
 
 
