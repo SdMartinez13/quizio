@@ -17,7 +17,7 @@ const SignIn = () => {
     return (
         <div className="bg-white h-screen lg:flex items-cnter">
 
-            <div className="w-full hidden h-screen lg:flex justify-center items-center bg-gray-100 h-full">
+            <div className="w-full hidden h-screen lg:flex justify-center items-center bg-gray-100">
                 <div className="p-6 flex justify-center">
                     <div className="h-40 w-40 rounded-full bg-purple-800" />
                 </div>
