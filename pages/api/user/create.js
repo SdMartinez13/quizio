@@ -19,28 +19,13 @@ export default async function handle(req, res) {
 
 // POST /api/user
 async function handlePOST(res, req) {
-    // logger.debug('creating user', {
-    //     ...req.body,
-    //     password: hashPassword(req.body.password),
-    // });
-
-    // bcrypt here
-
     const { first_name, email, password } = req.body;
 
-    // if (!)
+    // backend validation
     const errors = {};
-
-    if (!first_name) {
-        errors.first_name = 'First Name is required';
-    }
-    if (!email) {
-        errors.email = 'Email is required';
-    }
-    if (!password) {
-        errors.password = 'Password is required';
-    }
-
+    if (!first_name) { errors.first_name = 'First Name is required'; }
+    if (!email) { errors.email = 'Email is required'; }
+    if (!password) { errors.password = 'Password is required'; }
 
     if (!!Object.keys(errors).length) {
         return res.status(200).send({ errors });
