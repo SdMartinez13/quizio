@@ -26,6 +26,7 @@ const Navbar = () => {
                     <div className="flex gap-x-4">
 
                         <ActiveLink href="/">Home</ActiveLink>
+                        <ActiveLink href="/categories">Categories</ActiveLink>
 
                         {!session.data && (
                             <ActiveLink href="/dashboard">My Dashboard</ActiveLink>
@@ -74,7 +75,7 @@ const Navbar = () => {
                             </Link>
                             <Link
                                 href="/my/quizzes"
-                                className={classNames({ 'font-bold': router.asPath === '/my/quizzes' })}
+                                className={classNames({ 'font-bold': router.asPath.includes('/my/quizzes') })}
                             >
                                 My Quizzes
                             </Link>
