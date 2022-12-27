@@ -29,19 +29,11 @@ const authOptions = {
                     throw new Error('invalid credentials');
                 }
 
+                if (myUser.errors) {
+                    throw new Error(JSON.stringify(myUser.errors));
+                }
+
                 return myUser;
-
-                // if (email !== 'john@gmail.com' || password !== '1234') {
-                //     throw new Error('invalid credentials (#2)');
-                // }
-
-                // if everything is fine
-                // return {
-                //     id: '1234',
-                //     name: 'John Doe',
-                //     email: 'john@gmail.com',
-                //     role: 'admin',
-                // };
             },
         }),
     ],

@@ -19,13 +19,13 @@ async function handlePOST(res, req) {
     });
 
     if (!user) {
-        return res.status(200).send(null);
+        return res.status(200).send({ errors: { email: 'Invalid email or password', password: 'Invalid email or password' } });
     }
 
     const comparePassword = await bcrypt.compare(req.body.password, user.password);
 
     if (!comparePassword) {
-        return res.status(200).send(null);
+        return res.status(200).send({ errors: { email: 'Invalid email or password', password: 'Invalid email or password' } });
     }
 
     const { password, ...rest } = user;
