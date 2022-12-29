@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const { customAlphabet } = require('nanoid');
 const seedData = require('./quizSeedData');
 
-const nanoid = customAlphabet('1234567890abcdef', 7);
+const nanoid = customAlphabet('1234567890ABCDEF', 7);
 const prisma = new PrismaClient();
 
 
