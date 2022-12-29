@@ -32,13 +32,12 @@ const Navbar = () => {
         console.log(fields, 'fields');
         const res = await axios.post('/api/quizzes', fields);
 
-        console.log(res, 'RES IN FRONTEND')
+        console.log(res, 'RES IN FRONTEND');
 
 
-        TODO: 
+        // TODO:
         // if res.data.quiz_id
-        // router.push to the next page 
-
+        // router.push to the next page
     };
 
 
