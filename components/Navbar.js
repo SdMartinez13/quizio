@@ -13,7 +13,7 @@ const Navbar = () => {
     const session = useSession();
     // console.log(session, 'ssessions')
     const router = useRouter();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
 
     // console.log(router, 'router')
@@ -25,6 +25,7 @@ const Navbar = () => {
 
     const closeHandler = () => {
         setIsCreateQuizModalVisible(false);
+        reset();
         console.log('closed');
     };
 
@@ -38,6 +39,12 @@ const Navbar = () => {
         // TODO:
         // if res.data.quiz_id
         // router.push to the next page
+
+        if (res.data?.quiz_id) {
+            closeHandler();
+            return router.push(`/my/quizzes/${res.data.quiz_id}`);
+        }
+        return false;
     };
 
 
