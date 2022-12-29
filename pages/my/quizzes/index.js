@@ -16,7 +16,7 @@ const MyQuizzes = ({ myQuizzes }) => {
                 </p>
 
                 {myQuizzes.map(quiz => (
-                    <div className="border border-gray-300 p-4 flex items-center justify-between my-2">
+                    <div key={quiz.quiz_id} className="border border-gray-300 p-4 flex items-center justify-between my-2">
                         <Link href={`/my/quizzes/${quiz.quiz_id}`} className="underline">
                             {quiz.title}
                         </Link>
