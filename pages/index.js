@@ -1,13 +1,48 @@
 import Head from 'next/head';
-// import Image from 'next/image'
-import PropTypes from 'prop-types';
+import axios from 'axios';
+import { useState } from 'react';
+import { Modal } from '@nextui-org/react';
+import { Router } from 'next/router';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import classNames from 'classnames';
+import PropTypes, { resetWarningCache } from 'prop-types';
 import styles from '../styles/Home.module.css';
 import prisma from '../lib/prisma';
+// import Image from 'next/image'
+
 
 function Home({ feed, quizzes, categories }) {
     console.log(feed, ' in home');
     console.log(quizzes, 'quizzes');
     console.log(categories, 'categories');
+
+    const router = useRouter();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const [isCreateQuizModalVisible, setIsCreateQuizModalVisible] = useState(false);
+
+    if (Router.pathname === '/login') return null;
+
+    const handler = () => setIsCreateQuizModalVisible(true);
+
+    const closeHandler = () => {
+        setIsCreateQuizModalVisible(false);
+        reset();
+    };
+
+    const onSubmit = async fields => {
+        console.log(fields, 'INDEX FIELDS');
+        const res = await axios.post('api/quizzes', fields);
+
+        console.log(res, 'INDEX RES');
+
+        if (res.data?.quiz_id) {
+            closeHandler();
+            return router.push(`/my/quizzes/${res.data.quiz_id}`);
+        }
+        return false;
+    };
 
     return (
         <div className={styles.container}>
@@ -35,7 +70,7 @@ function Home({ feed, quizzes, categories }) {
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Welcome to <a href="">Quizio!</a>
+                    Welcome to <a href="/">Quizio!</a>
                 </h1>
 
                 {/* <p className={styles.description}>
@@ -75,17 +110,55 @@ function Home({ feed, quizzes, categories }) {
                     </p>
                     </a>
                 </div> */}
+                <Modal
+                    closeButton
+                    aria-labelledby="modal-title"
+                    open={isCreateQuizModalVisible}
+                    onClose={closeHandler}
+                    css={{ borderRadius: 4 }}
+                >
+                    <form onSubmit={handleSubmit(onSubmit)} className="px-4 py-8">
+                        <h2 className="text-2xl font-bold pb-2">Create a quiz</h2>
+                        <div className="text-sm px-4 pb-4">Create a quiz to send to your friends for some friendly competion!</div>
+
+                        <div className="w-full mb-6 text-left">
+                            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="quiz-name">
+                                Quiz Name
+                            </label>
+                            <input
+                                className={classNames('appearance-none block w-full disabled:bg-gray-100 disabled:text-gray-400 text-gray-700 border rounded py-3 px-4 mb-2 leading-tight focus:outline-none focus:bg-white', {
+                                    'border-red-500': !!errors.title,
+                                    'focus:border-gray-300': !errors.title,
+                                })}
+                                id="quiz-name"
+                                type="text"
+                                {...register('title', { required: 'Name field is required' })}
+                            />
+
+                            {errors.title?.message && (
+                                <p className="text-red-500 text-xs">{errors.title.message}</p>
+                            )}
+                        </div>
+
+                        <div className="flex justify-end">
+                            <button type="submit" className="px-4 py-2 bg-red-100">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </Modal>
                 <div className="flex mt-10 gap-4">
                     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md">
                         <a href="#">
                             <h5 className="mb-2 text-2xl font-bold text-black-900">Create a quiz</h5>
                         </a>
                         <p className="mb-3 font-normal text-gray-700 dark:text-black">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        <a href="/createQuiz" className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-500 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-white-300 dark:bg-purple-600">
+                        <button type="submit" onClick={handler} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-purple-500 rounded-lg hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-white-300 dark:bg-purple-600">
                             Create Now
                             <svg aria-hidden="true" className="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" /></svg>
-                        </a>
+                        </button>
                     </div>
+
                     <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-md">
                         <a href="#">
                             <h5 className="mb-2 text-2xl font-bold text-black-900">Take a quiz</h5>
