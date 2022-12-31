@@ -3,9 +3,13 @@ import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
 import classNames from 'classnames';
 import axios from 'axios';
+import { Dropdown, Avatar, Text, Grid, User, Button, Modal, Menu } from '@nextui-org/react';
 import { useRouter } from 'next/router';
-import { Modal, Button } from '@nextui-org/react';
 import { useForm } from 'react-hook-form';
+import { DeleteDocumentIcon } from './DeleteDocumentIcon.js';
+import { AddNoteIcon } from './AddNoteIcon.js';
+import { SettingsIcon } from './SettingsIcon';
+import { DashboardIcon } from './DashboardIcon.js';
 import ActiveLink from './ActiveLink';
 
 const Navbar = () => {
@@ -80,16 +84,110 @@ const Navbar = () => {
                                 className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-blue-200"
                                 href="/login"
                             >
-                                === Log In ===
+                                {/* === Log In === */}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+
                             </Link>
                         ) : (
-                            <button
-                                type="button"
-                                onClick={() => signOut({ callbackUrl: '/' })}
-                                className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-blue-200"
-                            >
-                                Logout
-                            </button>
+                            // <Dropdown>
+                            //     <Dropdown.Menu aria-label="Static Actions">
+                            //         <Dropdown.Button
+                            //             type="button"
+                            //             onClick={() => signOut({ callbackUrl: '/' })}
+                            //             className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-blue-200"
+                            //         >
+                            //             Logout
+                            //         </Dropdown.Button>
+                            //         <Dropdown.Item key="new">New file</Dropdown.Item>
+                            //         <Dropdown.Item key="copy">Copy link</Dropdown.Item>
+                            //         <Dropdown.Item key="edit">Edit file</Dropdown.Item>
+                            //         <Dropdown.Item key="delete" color="error">
+                            //             Delete file
+                            //         </Dropdown.Item>
+                            //     </Dropdown.Menu>
+                            // </Dropdown>
+                            // <Dropdown>
+                            //     <Dropdown.Button placement="bottom-left" flat>GO</Dropdown.Button>
+                            //     <Dropdown.Menu aria-label="Static Actions">
+                            //         <Dropdown.Item key="Logout" type="button" onClick={() => signOut({ callbackUrl: '/' })}>Logout</Dropdown.Item>
+                            //     </Dropdown.Menu>
+                            // </Dropdown>
+                            <Grid.Container justify="flex-end">
+                                <Grid>
+                                    <Dropdown placement="bottom-left">
+                                        <Dropdown.Trigger>
+                                            <User
+                                                bordered
+                                                as="button"
+                                                size="md"
+                                                color="primary"
+                                                name="John Doe"
+                                                // description="@Johndoe"
+                                                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+                                                text="John"
+                                            />
+                                        </Dropdown.Trigger>
+                                        <Dropdown.Menu color="primary" aria-label="User Actions">
+                                            <Dropdown.Item
+                                                key="profile"
+                                                css={{ height: '$18' }}
+                                            >
+                                                <Text
+                                                    css={{ d: 'flex' }}
+                                                >
+                                                    Signed in as
+                                                </Text>
+                                                <Text
+                                                    b
+                                                    color="inherit"
+                                                    css={{ d: 'flex' }}
+                                                >
+                                                    JD@gmail.com
+                                                </Text>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item
+                                                key="analytics"
+                                                icon={<DashboardIcon size={22} fill="var(--nextui-colors-neutral)" />}
+                                                withDivider
+                                            >
+                                                <ActiveLink href="/dashboard">Dashboard</ActiveLink>
+
+                                            </Dropdown.Item>
+                                            <Dropdown.Item
+                                                key="newQuiz"
+                                                icon={<AddNoteIcon size={22} fill="var(--nextui-colors-neutral)" />}
+                                            >
+                                                Create New Quiz
+                                            </Dropdown.Item>
+                                            <Dropdown.Item
+                                                key="settings"
+                                                icon={<SettingsIcon size={22} fill="var(--nextui-colors-success)" />}
+                                                withDivider
+                                            >
+                                                Settings
+                                            </Dropdown.Item>
+
+                                            <Dropdown.Item
+                                                key="logout"
+                                                color="error"
+                                                icon={<DeleteDocumentIcon size={22} fill="currentColor" />}
+                                                withDivider
+                                            >
+                                                <button
+                                                    type="submit"
+                                                    onClick={() => signOut({ callbackUrl: '/' })}
+                                                    className="flex-start text-black"
+
+                                                >
+                                                    Logout
+                                                </button>
+                                            </Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                                </Grid>
+                            </Grid.Container>
                         )
                     )}
                 </div>
