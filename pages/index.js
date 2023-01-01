@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import axios from 'axios';
 import { useState } from 'react';
+import axios from 'axios';
 import { Modal } from '@nextui-org/react';
 import { Router } from 'next/router';
 import { useRouter } from 'next/router';
