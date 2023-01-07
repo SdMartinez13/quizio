@@ -71,7 +71,7 @@ const Navbar = () => {
 
                         {!!session.data && (
 
-                            <ActiveLink href="/protected">Settings</ActiveLink>
+                            <ActiveLink href="/settings">Settings</ActiveLink>
                         )}
 
                     </div>
@@ -79,7 +79,7 @@ const Navbar = () => {
 
                         !session.data ? (
                             <Link
-                                className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-blue-200"
+                                className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-purple-600 hover:text-white"
                                 href="/login"
                             >
                                 {/* === Log In === */}
@@ -93,11 +93,10 @@ const Navbar = () => {
                             <div className="flex top-16 w-22">
                                 <Menu as="div" className="relative inline-block text-left">
                                     {/* <div className="flex"> */}
-                                    <Menu.Button className="flex text-purple-500">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 mr-2">
+                                    <Menu.Button className="px-3 py-2 rounded-md text-sm font-medium text-black hover:bg-purple-600 hover:text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 mr-2">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
-                                        JD@gmail.com
                                     </Menu.Button>
                                     {/* </div> */}
                                     <Transition
@@ -121,16 +120,43 @@ const Navbar = () => {
                                                         >
                                                             {active ? (
                                                                 <CreateActiveIcon
-                                                                    className="mr-2 h-5 w-5"
+                                                                    className="mr-2 h-5 w-5 text-purple-100"
                                                                     aria-hidden="true"
                                                                 />
                                                             ) : (
                                                                 <CreateInactiveIcon
-                                                                    className="mr-2 h-5 w-5"
+                                                                    className="mr-2 h-5 w-5 text-purple-600"
                                                                     aria-hidden="true"
                                                                 />
                                                             )}
                                                             Create Quiz
+                                                        </button>
+                                                    )}
+                                                </Menu.Item>
+                                                <Menu.Item
+                                                    as="a"
+                                                    href="/my/quizzes"
+                                                    className="ui-active:bg-blue-500 ui-active:text-white ui-not-active:bg-white ui-not-active:text-black"
+                                                >
+                                                    {({ active }) => (
+                                                        <button
+                                                            className={`${active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                                            } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                                            type="submit"
+                                                        // onClick={handler}
+                                                        >
+                                                            {active ? (
+                                                                <ListActiveIcon
+                                                                    className="mr-2 h-5 w-5 text-purple-100"
+                                                                    aria-hidden="true"
+                                                                />
+                                                            ) : (
+                                                                <ListInactiveIcon
+                                                                    className="mr-2 h-5 w-5 text-purple-600"
+                                                                    aria-hidden="true"
+                                                                />
+                                                            )}
+                                                            My Quizzes
                                                         </button>
                                                     )}
                                                 </Menu.Item>
@@ -147,12 +173,12 @@ const Navbar = () => {
                                                         >
                                                             {active ? (
                                                                 <DashboardActiveIcon
-                                                                    className="mr-2 h-5 w-5"
+                                                                    className="mr-2 h-5 w-5 text-purple-100"
                                                                     aria-hidden="true"
                                                                 />
                                                             ) : (
                                                                 <DashboardInactiveIcon
-                                                                    className="mr-2 h-5 w-5"
+                                                                    className="mr-2 h-5 w-5 text-purple-600"
                                                                     aria-hidden="true"
                                                                 />
                                                             )}
@@ -174,12 +200,12 @@ const Navbar = () => {
                                                         >
                                                             {active ? (
                                                                 <SettingsActiveIcon
-                                                                    className="mr-2 h-5 w-5"
+                                                                    className="mr-2 h-5 w-5 text-purple-100"
                                                                     aria-hidden="true"
                                                                 />
                                                             ) : (
                                                                 <SettingsInactiveIcon
-                                                                    className="mr-2 h-5 w-5"
+                                                                    className="mr-2 h-5 w-5 text-purple-600"
                                                                     aria-hidden="true"
                                                                 />
                                                             )}
@@ -200,12 +226,12 @@ const Navbar = () => {
                                                         >
                                                             {active ? (
                                                                 <LogoutActiveIcon
-                                                                    className="mr-2 h-5 w-5 text-violet-400"
+                                                                    className="mr-2 h-5 w-5 text-purple-100"
                                                                     aria-hidden="true"
                                                                 />
                                                             ) : (
                                                                 <LogoutInactiveIcon
-                                                                    className="mr-2 h-5 w-5 text-violet-400"
+                                                                    className="mr-2 h-5 w-5 text-purple-600"
                                                                     aria-hidden="true"
                                                                 />
                                                             )}
@@ -336,6 +362,50 @@ function CreateActiveIcon(props) {
                 d="M12 4.5v15m7.5-7.5h-15"
             />
         </svg>
+
+    );
+}
+
+function ListInactiveIcon(props) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+        // className="w-6 h-6"
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
+        </svg>
+
+
+    );
+}
+
+function ListActiveIcon(props) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+        // className="w-6 h-6"
+        >
+            <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+            />
+        </svg>
+
 
     );
 }
