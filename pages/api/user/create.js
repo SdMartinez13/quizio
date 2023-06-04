@@ -36,7 +36,7 @@ async function handlePOST(res, req) {
     const user = await prisma.qUsers.create({
         data: { ...req.body, password: hashed },
     });
-    console.log(user, 'NEWLY CREATED USERRR')
+    console.log(user, 'NEWLY CREATED USERRR');
     // res.json(user);
     return res.status(200).send('hello world');
 }

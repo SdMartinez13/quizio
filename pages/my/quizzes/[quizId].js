@@ -14,14 +14,14 @@ const QUESTION = {
     question: 'Where is Carmen SANDIEGO!??!!',
     choices: [{ choice: 'who knossws?', correct: true }, { choice: 'At my place', correct: false }, { choice: 'who knows?', correct: false }, { choice: 'At my aaaaa', correct: false }],
     is_active: true,
-}
+};
 
 const QUESTION_DEFAULT = {
     id: Math.random(),
     question: '',
     choices: [{ choice: '', correct: false }, { choice: '', correct: false }],
     is_active: true,
-}
+};
 
 const MyQuizId = ({ q }) => {
     console.log(q, "QQQQQQQ");

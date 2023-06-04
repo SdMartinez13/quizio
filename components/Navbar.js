@@ -71,7 +71,7 @@ const Navbar = () => {
 
                         {!!session.data && (
 
-                            <ActiveLink href="/settings">Settings</ActiveLink>
+                            <ActiveLink href="/my/settings">Settings</ActiveLink>
                         )}
 
                     </div>
@@ -190,7 +190,7 @@ const Navbar = () => {
                                             <div className="px-1 py-1">
                                                 <Menu.Item
                                                     as="a"
-                                                    href="/settings"
+                                                    href="/my/settings"
                                                 >
                                                     {({ active }) => (
                                                         <button

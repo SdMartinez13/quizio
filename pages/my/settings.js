@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { Tab, Disclosure } from '@headlessui/react';
-import Router from 'next/router';
+// import Router from 'next/router';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 
 const Protected = () => {
@@ -23,7 +24,7 @@ const Protected = () => {
                                 ring-white ring-opacity-60 ring-offset-2 ring-offset-purple-400 focus:outline-none focus:ring-2
                                 selected ? bg-purple-100 shadow : text-purple-600 hover:bg-white/[0.12] hover:text-purple-600"
                     >
-                        Change Password
+                        Profile
                     </Tab>
                     <Tab
                         key={2}
@@ -44,19 +45,19 @@ const Protected = () => {
                 </Tab.List>
                 <Tab.Panels className="mt-2">
                     <Tab.Panel key={1}>
-                        <h1 className="flex justify-center m-14 p-4">Change Password</h1>
-                        <form className="flex flex-col required border mt-4 pt-4" method="post" action="">
+                        <h1 className="flex text-red-500 p-4">Change Password</h1>
+                        <form className="flex flex-col required border mx-4 py-4" onSubmit={() => console.log('submitting')}>
 
-                            <label htmlFor="newPassword">New Password:</label>
-                            <input className="border max-w-md" type="password" id="newPassword" name="newPassword" title="New password" />
+                            <label className="ml-4" htmlFor="oldPassword">Old Password:</label>
+                            <input className="border m-4 max-w-md" type="password" id="oldPassword" name="oldPassword" title="Old password" />
 
-                            <label htmlFor="confirmPassword">Confirm Password:</label>
-                            <input className="border max-w-md" type="password" id="confirmPassword" name="confirmPassword" title="Confirm new password" />
+                            <label className="ml-4" htmlFor="newPassword">New Password:</label>
+                            <input className="border m-4 max-w-md" type="password" id="newPassword" name="newPassword" title="New password" />
 
-                            <label htmlFor="token">Pasword Token:</label>
-                            <input className="border max-w-md" type="text" id="token" name="token" title="Password Token" />
+                            <label className="ml-4" htmlFor="token">Confirm New Password:</label>
+                            <input className="border m-4 max-w-md" type="text" id="token" name="token" title="confirmPassword" />
 
-                            <p className="flex justify-center text-center form-actions border max-w-xs rounded bg-blue-200">
+                            <p className="flex justify-center text-center m-4 form-actions border max-w-xs rounded bg-blue-200">
                                 <input type="submit" value="Change Password" title="Change password" />
                             </p>
 
@@ -99,7 +100,7 @@ const Protected = () => {
                                                 />
                                             </Disclosure.Button>
                                             <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500">
-                                                Yes. <a className=" text-blue-400 bold underline hover:bg-blue-100" href="/about">Email Us!</a>
+                                                Yes. <Link className=" text-blue-400 bold underline hover:bg-blue-100" href="/about">Email Us!</Link>
                                             </Disclosure.Panel>
                                         </>
                                     )}
